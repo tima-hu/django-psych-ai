@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали психологического теста</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ assessment.title }}</h1>
+        <p>{{ assessment.description }}</p>
+        
+        <h2>Результаты теста</h2>
+        <ul>
+            {% for result in assessment.results %}
+                <li>{{ result.question }}: {{ result.answer }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Рекомендации</h2>
+        <p>{{ assessment.recommendations }}</p>
+
+        <a href="{% url 'assessments:index' %}">Назад к тестам</a>
+    </div>
+</body>
+</html>

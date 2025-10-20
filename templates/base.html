@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Психологическое тестирование{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Психологическое тестирование и планирование обучения</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'assessments:index' %}">Тесты</a></li>
+                <li><a href="{% url 'planner:index' %}">Планирование</a></li>
+                <li><a href="{% url 'users:profile' %}">Профиль</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2023 Психологическое тестирование</p>
+    </footer>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

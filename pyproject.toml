@@ -1,0 +1,48 @@
+
+[project]
+name = "uv-test"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "Django==4.2",
+    "djangorestframework==3.14.0",
+    "numpy==1.23.5",           # совместим с tensorflow 2.12
+    "pandas==1.6.2",
+    "scikit-learn==1.2.2",
+    "tensorflow==2.12.0",      # без tensorflow-io-gcs-filesystem
+    "python-dotenv==1.0.0",
+    "django-cors-headers==3.14.0",
+    "gunicorn==21.2.0",
+    "psycopg2-binary==2.9.5"
+]
+
+
+
+# -------------------------
+# 🧹 Настройки Ruff
+# -------------------------
+[tool.ruff]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+line-length = 88
+indent-width = 4
+target-version = "py311"
+
+exclude = [
+    ".venv",
+    "migrations",
+    "__pycache__",
+    "manage.py",
+]
+
+# Исправлять ошибки автоматически (можно отключить при необходимости)
+fix = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+docstring-code-format = true
+skip-magic-trailing-comma = false
