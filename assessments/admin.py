@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import PsychologicalTest, UserResponse
+from .models import PsychologicalTest, UserResponse,Assessment
 
 class PsychologicalTestAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'updated_at')
@@ -9,5 +9,11 @@ class UserResponseAdmin(admin.ModelAdmin):
     list_display = ('user', 'test', 'score', 'created_at')
     list_filter = ('test',)
 
+class AssessmentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'user', 'created_at', 'updated_at')
+    search_fields = ('title',)
+    list_filter = ('created_at',)
+
 admin.site.register(PsychologicalTest, PsychologicalTestAdmin)
 admin.site.register(UserResponse, UserResponseAdmin)
+admin.site.register(Assessment, AssessmentAdmin)

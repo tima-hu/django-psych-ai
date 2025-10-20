@@ -1,10 +1,18 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import UserProfile
-from .serializers import UserProfileSerializer
-from rest_framework import viewsets
+from .models import UserProfile,User
+from .serializers import UserProfileSerializer,UserSerializer
+from rest_framework import viewsets,generics
 from rest_framework.permissions import IsAuthenticated
 
+class UserList(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+ 
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer

@@ -1,10 +1,12 @@
 from django.urls import path
-from . import views
+from assessments.views import AssessmentDetail,AssessmentList
+from users.views import UserList,UserDetail
+from planner.views import  PlannerView
 
 urlpatterns = [
-    path('assessments/', views.AssessmentList.as_view(), name='assessment-list'),
-    path('assessments/<int:pk>/', views.AssessmentDetail.as_view(), name='assessment-detail'),
-    path('users/', views.UserList.as_view(), name='user-list'),
-    path('users/<int:pk>/', views.UserDetail.as_view(), name='user-detail'),
-    path('planner/', views.PlannerView.as_view(), name='planner'),
+    path('assessments/', AssessmentList.as_view(), name='assessment-list'),
+    path('assessments/<int:pk>/', AssessmentDetail.as_view(), name='assessment-detail'),
+    path('users/', UserList.as_view(), name='user-list'),
+    path('users/<int:pk>/', UserDetail.as_view(), name='user-detail'),
+    path('planner/', PlannerView.as_view(), name='planner'),
 ]
