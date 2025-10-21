@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import PsychologicalTest, UserResponse,Assessment
 from users.serializers import UserSerializer
-from users.models import CustomUser
+from users.models import User
 class PsychologicalTestSerializer(serializers.ModelSerializer):
     class Meta:
         model = PsychologicalTest
@@ -14,11 +14,11 @@ class UserResponseSerializer(serializers.ModelSerializer):
 
 class AssessmentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    user_id = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all(), source='user', write_only=True, required=False)
+    user_id = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), source='user', write_only=True, required=False)
 
     class Meta:
         model = Assessment
-        fields = ['id', 'title', 'description', 'data', 'results', 'score', 'user', 'user_id', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'user_id','user','response', 'evaluator', 'score', 'result', 'metadata', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at', 'results', 'score']
 
     def validate_data(self, value):

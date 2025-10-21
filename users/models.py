@@ -1,27 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
-class CustomUser(AbstractUser):
-    # Дополнительные поля для профиля пользователя
-    date_of_birth = models.DateField(null=True, blank=True)
-    bio = models.TextField(null=True, blank=True)
 
-    def __str__(self):
-        return self.username
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    preferences = models.JSONField(default=dict)
-
-    def __str__(self):
-        return f"{self.user.username}'s Profile"
-    
 class User(models.Model):
     """
-    Простой модель-представление пользователя для CRUD в этом API.
-    (Если у вас уже есть отдельная пользователи/app с кастомным AUTH_USER_MODEL,
-    используйте её вместо этой модели.)
+    Простая модель пользователя для CRUD в API.
+    Не используется для аутентификации (только как сущность в базе).
     """
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=150, blank=True)
@@ -31,3 +15,22 @@ class User(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class UserProfile(models.Model):
+    """
+    Дополнительный профиль пользователя (например, предпочтения или демографические данные).
+    """
+    GENDER_CHOICES = [
+        ("M", "Male"),
+        ("F", "Female"),
+        ("O", "Other"),
+    ]
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile_details")
+    date_of_birth = models.DateField(null=True, blank=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
+    preferences = models.JSONField(default=dict, blank=True)
+
+    def __str__(self):
+        return f"{self.user.email}'s Profile"
